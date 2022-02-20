@@ -1,5 +1,5 @@
 class FirebaseKeys {
-  static const String androidKey = 'AIzaSyCXU5f25S_SUeVv7cAzoeF373kHk4Hv2dE';
-  static const String iosKey = 'AIzaSyAjvNoe31ZMSakjKFOkhbrZBsj3RyW6plo';
-  static const String webKey = 'AIzaSyD40PR_fizjSYtCZEtXgwq_5LdJu2w2zIs';
+  static const String androidKey = 'AIzaSyAgleMBLWGeOQHnGpAyCMDsxoz4CdK46Fg';
+  static const String iosKey = 'AIzaSyCn005OVun4NhDkvTpjhNjhTvAQPUPgGHU';
+  static const String webKey = 'AIzaSyDaj-LxNcWd4Onq0WcjsB7c-6O3F-onHgU';
 }

@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:relation/relation.dart';
@@ -30,7 +29,7 @@ class _ChatsScreenState
         actions: [
           GestureDetector(
             child: const Icon(Icons.refresh),
-            onTap: wm.onRefresh,
+            onTap: wm.onRefreshTap,
           ),
         ],
         title: TextField(

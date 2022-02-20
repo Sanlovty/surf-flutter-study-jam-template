@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:surf_injector/surf_injector.dart';
@@ -13,22 +12,19 @@ class App extends CoreMwwmWidget<AppWidgetModel> {
           widgetModelBuilder: (_) => AppWidgetModel(),
         );
 
-   @override
+  @override
   WidgetState<App, AppWidgetModel> createWidgetState() => _AppState();
-
 }
-
 
 class _AppState extends WidgetState<App, AppWidgetModel> {
   @override
   Widget build(BuildContext context) {
-    
     return MaterialApp(
-        navigatorKey: Injector.of<AppComponent>(context).component.navigator,
-        initialRoute: AppRouter.splashScreen,
-        onGenerateRoute: (routeSettings) =>
-            AppRouter.routes[routeSettings.name]!(routeSettings.arguments),
-      );
-    
+      navigatorKey: Injector.of<AppComponent>(context).component.navigator,
+      debugShowCheckedModeBanner: false,
+      initialRoute: AppRouter.splashScreen,
+      onGenerateRoute: (routeSettings) =>
+          AppRouter.routes[routeSettings.name]!(routeSettings.arguments),
+    );
   }
 }

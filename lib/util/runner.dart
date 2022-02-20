@@ -27,8 +27,8 @@ Future<void> runApplication() async {
 
   runApp(
     Injector(
-        component: AppComponent(),
-        builder: (ctx) => App(),
-      ),
+      component: AppComponent(),
+      builder: (ctx) => App(),
+    ),
   );
 }

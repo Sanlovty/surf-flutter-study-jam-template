@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:surf_practice_chat_flutter/assets/colors/app_colors.dart';
+import 'package:surf_practice_chat_flutter/assets/themes/app_theme.dart';
 import 'package:surf_practice_chat_flutter/data/chat/models/message.dart';
-import 'package:surf_practice_chat_flutter/data/chat/models/user.dart';
 
 class MessageCard extends StatelessWidget {
   final ChatMessageDto message;
@@ -13,33 +12,20 @@ class MessageCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Card(
+        child: Container(
       decoration: BoxDecoration(
-        color: Color.fromARGB(255, 228, 230, 231),
-        borderRadius: BorderRadius.circular(16),
+        color: defaultTheme.cardColor,
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          children: [
-            Text(
-              _dateTimeToString(message.createdDateTime),
-            ),
-            Text('${message.author.name}: '),
-            Text(message.message),
-          ],
-        ),
-      ),
-    );
+    ));
   }
 
   String _dateTimeToString(DateTime time) {
-    String result = '${time.hour.toString()}:';
-    if (time.minute < 10) {
-      result += '0${time.minute.toString()}  ';
-    } else {
-      result += '${time.minute.toString()}  ';
-    }
+    var result = '${time.hour.toString()}:';
+    time.minute < 10
+        ? result += '0${time.minute.toString()}  '
+        : result += '${time.minute.toString()}  ';
+
     return result;
   }
 }

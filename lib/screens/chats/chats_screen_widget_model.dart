@@ -40,7 +40,7 @@ class ChatsScreenWidgetModel extends WidgetModel {
     required this.chatRepository,
   }) : super(const WidgetModelDependencies());
 
-  Future<void> onRefresh() async {
+  Future<void> onRefreshTap() async {
     await _fetchMessages();
   }
 
