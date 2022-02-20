@@ -17,10 +17,31 @@ class MessageCard extends StatelessWidget {
         backgroundColor: defaultTheme.bottomAppBarColor,
         child: const Icon(Icons.person),
       ),
-      title: Text(message.author.name),
-      subtitle: Text(message.message),
+      title: Text(
+        message.author.name,
+        style: const TextStyle(
+          fontSize: 16.0,
+          color: Color.fromARGB(255, 198, 184, 223),
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      subtitle: Text(
+        message.message,
+        style: const TextStyle(
+          fontSize: 15.0,
+          color: Color.fromARGB(255, 113, 105, 138),
+          fontWeight: FontWeight.bold,
+        ),
+      ),
       isThreeLine: true,
-      trailing: Text(_dateTimeToString(message.createdDateTime)),
+      trailing: Text(
+        _dateTimeToString(message.createdDateTime),
+        style: const TextStyle(
+          fontSize: 12.0,
+          color: Color.fromARGB(255, 95, 90, 110),
+          fontWeight: FontWeight.bold,
+        ),
+      ),
     );
   }
 

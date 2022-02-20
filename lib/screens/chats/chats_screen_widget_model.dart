@@ -44,6 +44,8 @@ class ChatsScreenWidgetModel extends WidgetModel {
     await _fetchMessages();
   }
 
+  Future<void> onLocationTap() async {}
+
   Future<void> onSendTap() async {
     final nickname =
         nicknameController.text.isEmpty ? 'Unknown' : nicknameController.text;

@@ -23,12 +23,11 @@ class SplashScreen extends CoreMwwmWidget<SplashScreenWidgetModel> {
 // Стейт сплеш скрина
 class _SplashScreenState
     extends WidgetState<SplashScreen, SplashScreenWidgetModel> {
-
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        color: AppColors.brightGray,
+        color: AppColors.white,
       ),
       child: FadeTransition(
         opacity: wm.fadeController,

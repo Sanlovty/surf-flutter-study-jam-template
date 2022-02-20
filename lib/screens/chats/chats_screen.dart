@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:relation/relation.dart';
-import 'package:surf_practice_chat_flutter/assets/colors/app_colors.dart';
 import 'package:surf_practice_chat_flutter/data/chat/models/message.dart';
 import 'package:surf_practice_chat_flutter/screens/chats/chats_screen_widget_model.dart';
 import 'package:surf_practice_chat_flutter/screens/chats/widgets/message_card.dart';
+import 'package:surf_util/surf_util.dart';
 
 /// Splash screen
 class ChatsScreen extends CoreMwwmWidget<ChatsScreenWidgetModel> {
@@ -24,56 +24,120 @@ class _ChatsScreenState
     extends WidgetState<ChatsScreen, ChatsScreenWidgetModel> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        actions: [
-          GestureDetector(
-            child: const Icon(Icons.refresh),
-            onTap: wm.onRefreshTap,
-          ),
-        ],
-        title: TextField(
-          controller: wm.nicknameController,
-          decoration: const InputDecoration(
-            hintText: 'Введите ник',
-          ),
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topRight,
+          end: Alignment.bottomLeft,
+          colors: [
+            Color.fromARGB(255, 11, 9, 17),
+            Color.fromARGB(255, 24, 27, 48),
+            Color.fromARGB(255, 37, 31, 65),
+          ],
         ),
       ),
-      bottomNavigationBar: Padding(
-        padding:
-            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-        child: SizedBox(
-          height: wm.bottomBarHeight,
-          child: Container(
-            decoration: const BoxDecoration(
-              color: AppColors.white,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 50,
-                vertical: 10,
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          backgroundColor: Color.fromARGB(255, 22, 15, 49),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: GestureDetector(
+                child: const Icon(Icons.refresh),
+                onTap: wm.onRefreshTap,
               ),
+            ),
+          ],
+          title: Container(
+            width: 300,
+            height: 60,
+            padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 18),
+            child: TextField(
+              style: const TextStyle(
+                fontSize: 16.0,
+                color: Color.fromARGB(255, 206, 205, 205),
+              ),
+              controller: wm.nicknameController,
+              decoration: const InputDecoration(
+                hintText: 'Write a name',
+                fillColor: Color.fromARGB(255, 78, 56, 163),
+                hintStyle: TextStyle(
+                  fontSize: 16.0,
+                  color: Color.fromARGB(255, 206, 205, 205),
+                ),
+              ),
+            ),
+          ),
+        ),
+        bottomNavigationBar: Padding(
+          padding:
+              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+          child: SizedBox(
+            height: wm.bottomBarHeight,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Flexible(
-                    flex: 30,
-                    child: TextField(
-                      controller: wm.textController,
-                      textAlign: TextAlign.left,
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Сообщение',
-                        hintStyle: TextStyle(color: Colors.grey),
+                    flex: 10,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 5, left: 5),
+                      child: GestureDetector(
+                        child: const Icon(
+                          Icons.my_location_rounded,
+                          size: 26,
+                          color: Color.fromARGB(255, 78, 56, 163),
+                        ),
+                        onTap: wm.onLocationTap,
                       ),
                     ),
                   ),
                   Flexible(
-                    child: GestureDetector(
-                      child: const Icon(
-                        Icons.send,
+                    flex: 75,
+                    child: Container(
+                      padding: const EdgeInsets.only(
+                        left: 15,
+                        bottom: 6,
                       ),
-                      onTap: wm.onSendTap,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 1.5,
+                          color: const Color.fromARGB(255, 70, 66, 80),
+                        ),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(16.0)),
+                      ),
+                      child: TextField(
+                        style: const TextStyle(
+                          color: Colors.white,
+                        ),
+                        controller: wm.textController,
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Write a message...',
+                          hintStyle: TextStyle(
+                            fontSize: 16.0,
+                            color: Color.fromARGB(255, 206, 205, 205),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Flexible(
+                    flex: 10,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 5, left: 5),
+                      child: GestureDetector(
+                        child: const Icon(
+                          Icons.send,
+                          size: 26,
+                          color: Color.fromARGB(255, 78, 56, 163),
+                        ),
+                        onTap: wm.onSendTap,
+                      ),
                     ),
                   ),
                 ],
@@ -81,23 +145,22 @@ class _ChatsScreenState
             ),
           ),
         ),
-      ),
-      body: Container(
-        color: AppColors.brightGray,
-        child: StreamedStateBuilder<List<ChatMessageDto>>(
+        body: StreamedStateBuilder<List<ChatMessageDto>>(
           streamedState: wm.messages,
           builder: (context, message) {
-            return ListView.builder(
-              reverse: true,
-              itemCount: wm.messages.value.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: MessageCard(
-                    message: wm.messages.value[index],
-                  ),
-                );
-              },
+            return DisableOverscroll(
+              child: ListView.builder(
+                reverse: true,
+                itemCount: wm.messages.value.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: MessageCard(
+                      message: wm.messages.value[index],
+                    ),
+                  );
+                },
+              ),
             );
           },
         ),
