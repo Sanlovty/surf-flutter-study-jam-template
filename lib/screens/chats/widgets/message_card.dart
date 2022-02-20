@@ -12,12 +12,16 @@ class MessageCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-        child: Container(
-      decoration: BoxDecoration(
-        color: defaultTheme.cardColor,
+    return ListTile(
+      leading: CircleAvatar(
+        backgroundColor: defaultTheme.bottomAppBarColor,
+        child: const Icon(Icons.person),
       ),
-    ));
+      title: Text(message.author.name),
+      subtitle: Text(message.message),
+      isThreeLine: true,
+      trailing: Text(_dateTimeToString(message.createdDateTime)),
+    );
   }
 
   String _dateTimeToString(DateTime time) {

@@ -25,6 +25,7 @@ class _ChatsScreenState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         actions: [
           GestureDetector(
@@ -39,40 +40,44 @@ class _ChatsScreenState
           ),
         ),
       ),
-      bottomNavigationBar: SizedBox(
-        height: wm.bottomBarHeight,
-        child: Container(
-          decoration: const BoxDecoration(
-            color: AppColors.white,
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 50,
-              vertical: 10,
+      bottomNavigationBar: Padding(
+        padding:
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        child: SizedBox(
+          height: wm.bottomBarHeight,
+          child: Container(
+            decoration: const BoxDecoration(
+              color: AppColors.white,
             ),
-            child: Row(
-              children: [
-                Flexible(
-                  flex: 30,
-                  child: TextField(
-                    controller: wm.textController,
-                    textAlign: TextAlign.left,
-                    decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Сообщение',
-                      hintStyle: TextStyle(color: Colors.grey),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 50,
+                vertical: 10,
+              ),
+              child: Row(
+                children: [
+                  Flexible(
+                    flex: 30,
+                    child: TextField(
+                      controller: wm.textController,
+                      textAlign: TextAlign.left,
+                      decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Сообщение',
+                        hintStyle: TextStyle(color: Colors.grey),
+                      ),
                     ),
                   ),
-                ),
-                Flexible(
-                  child: GestureDetector(
-                    child: const Icon(
-                      Icons.send,
+                  Flexible(
+                    child: GestureDetector(
+                      child: const Icon(
+                        Icons.send,
+                      ),
+                      onTap: wm.onSendTap,
                     ),
-                    onTap: wm.onSendTap,
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
