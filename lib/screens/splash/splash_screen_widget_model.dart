@@ -16,14 +16,14 @@ SplashScreenWidgetModel createSplashScreenWidgetModel(BuildContext context) {
 /// [WidgetModel] для сплеш скрина
 class SplashScreenWidgetModel extends WidgetModel
     with TickerProviderWidgetModelMixin {
-  static const int _fadeDuration = 20;
-  static const int _animationDuration = 45;
-  static const int _splashScreenDuration = 20;
+  static const int _fadeDuration = 0;
+  static const int _animationDuration = 100;
+  static const int _splashScreenDuration = 2000;
 
   final GlobalKey<ScaffoldState> scaffoldKey;
   final NavigatorState navigator;
-  final double logoHeight = 270;
-  final double logoWidth = 270;
+  final double logoHeight = 170;
+  final double logoWidth = 170;
   final String logoPath = AppIcons.splashIcon;
 
   late final AnimationController fadeController;

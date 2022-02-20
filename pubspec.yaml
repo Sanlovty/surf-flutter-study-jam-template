@@ -11,6 +11,7 @@ dependencies:
   mwwm: ^2.0.0
   surf_injector: ^1.0.0
   surf_util: ^1.0.3
+  geolocator: ^8.2.0
   flutter:
     sdk: flutter
 
