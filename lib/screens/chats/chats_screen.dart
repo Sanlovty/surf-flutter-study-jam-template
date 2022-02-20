@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:relation/relation.dart';
@@ -83,6 +84,7 @@ class _ChatsScreenState
           streamedState: wm.messages,
           builder: (context, message) {
             return ListView.builder(
+              reverse: true,
               itemCount: wm.messages.value.length,
               itemBuilder: (context, index) {
                 return Padding(

@@ -50,6 +50,7 @@ class ChatsScreenWidgetModel extends WidgetModel {
     final message = textController.text;
     if (message.isNotEmpty) {
       await chatRepository.sendMessage(nickname, message);
+      textController.clear();
       await _fetchMessages();
     }
   }
@@ -63,6 +64,6 @@ class ChatsScreenWidgetModel extends WidgetModel {
 
   Future<void> _fetchMessages() async {
     final response = await chatRepository.messages;
-    await messages.accept(response);
+    await messages.accept(response.reversed.toList());
   }
 }
