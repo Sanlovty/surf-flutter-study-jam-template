@@ -88,6 +88,13 @@ class ChatsScreenWidgetModel extends WidgetModel {
     _fetchMessages();
   }
 
+  // ignore: member-ordering-extended
+  @override
+  void dispose() {
+    super.dispose();
+    textController.dispose();
+  }
+
   Future<void> _fetchMessages() async {
     final response = await chatRepository.messages;
     await messages.accept(response.reversed.toList());

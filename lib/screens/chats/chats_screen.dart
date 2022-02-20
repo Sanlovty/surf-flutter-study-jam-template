@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:relation/relation.dart';
 import 'package:surf_practice_chat_flutter/data/chat/models/message.dart';
+import 'package:surf_practice_chat_flutter/data/chat/models/user.dart';
 import 'package:surf_practice_chat_flutter/screens/chats/chats_screen_widget_model.dart';
 import 'package:surf_practice_chat_flutter/screens/chats/widgets/message_card.dart';
+import 'package:surf_practice_chat_flutter/screens/chats/widgets/message_geo_card.dart';
 import 'package:surf_util/surf_util.dart';
 
 /// Splash screen
@@ -145,7 +147,7 @@ class _ChatsScreenState
             ),
           ),
         ),
-        body: StreamedStateBuilder<List<ChatMessageDto>>(
+        body: StreamedStateBuilder(
           streamedState: wm.messages,
           builder: (context, message) {
             return DisableOverscroll(
@@ -153,12 +155,24 @@ class _ChatsScreenState
                 reverse: true,
                 itemCount: wm.messages.value.length,
                 itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: MessageCard(
-                      message: wm.messages.value[index],
-                    ),
-                  );
+                  final _isAuthor =
+                      wm.messages.value[index].author is ChatUserLocalDto;
+                  // ignore: prefer-conditional-expressions
+                  if (wm.messages.value[index] is ChatMessageGeolocationDto) {
+                    return MessageGeoCard(
+                      message:
+                          wm.messages.value[index] as ChatMessageGeolocationDto,
+                      isAuthor: _isAuthor,
+                    );
+                  } else {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: MessageCard(
+                        message: wm.messages.value[index],
+                        isAuthor: _isAuthor,
+                      ),
+                    );
+                  }
                 },
               ),
             );
