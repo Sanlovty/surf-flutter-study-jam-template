@@ -35,3 +35,22 @@ flutter:
     - assets/fonts/
     - assets/icons/
     - assets/images/
+
+fonts:
+  - family: Roboto
+    fonts:
+      - asset: assets/font/Roboto-Regular.ttf
+      - asset: assets/font/Roboto-Black.ttf
+      - asset: assets/font/Roboto-BlackItalic.ttf
+      - asset: assets/font/Roboto-BoldItalic.ttf
+      - asset: assets/font/Roboto-Light.ttf
+      - asset: assets/font/Roboto-LightItalic.ttf
+      - asset: assets/font/Roboto-Medium.ttf
+        weight: 500
+      - asset: assets/font/Roboto-MediumItalic.ttf
+      - asset: assets/font/Roboto-Thin.ttf
+      - asset: assets/font/Roboto-ThinItalic.ttf
+      - asset: assets/font/Roboto-Bold.ttf
+        weight: 700
+      - asset: assets/font/Roboto-Italic.ttf
+        style: italic

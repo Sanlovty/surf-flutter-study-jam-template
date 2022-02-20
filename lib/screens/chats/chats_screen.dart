@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:relation/relation.dart';
+import 'package:surf_practice_chat_flutter/assets/colors/app_colors.dart';
 import 'package:surf_practice_chat_flutter/data/chat/models/message.dart';
 import 'package:surf_practice_chat_flutter/data/chat/models/user.dart';
 import 'package:surf_practice_chat_flutter/screens/chats/chats_screen_widget_model.dart';
 import 'package:surf_practice_chat_flutter/screens/chats/widgets/message_card.dart';
-import 'package:surf_practice_chat_flutter/screens/chats/widgets/message_geo_card.dart';
 import 'package:surf_util/surf_util.dart';
 
 /// Splash screen
@@ -64,7 +64,7 @@ class _ChatsScreenState
               controller: wm.nicknameController,
               decoration: const InputDecoration(
                 hintText: 'Write a name',
-                fillColor: Color.fromARGB(255, 78, 56, 163),
+                fillColor: AppColors.blueMagentaViolet,
                 hintStyle: TextStyle(
                   fontSize: 16.0,
                   color: Color.fromARGB(255, 206, 205, 205),
@@ -91,7 +91,7 @@ class _ChatsScreenState
                         child: const Icon(
                           Icons.my_location_rounded,
                           size: 26,
-                          color: Color.fromARGB(255, 78, 56, 163),
+                          color: AppColors.blueMagentaViolet,
                         ),
                         onTap: wm.onLocationTap,
                       ),
@@ -136,7 +136,7 @@ class _ChatsScreenState
                         child: const Icon(
                           Icons.send,
                           size: 26,
-                          color: Color.fromARGB(255, 78, 56, 163),
+                          color: AppColors.blueMagentaViolet,
                         ),
                         onTap: wm.onSendTap,
                       ),
@@ -155,24 +155,12 @@ class _ChatsScreenState
                 reverse: true,
                 itemCount: wm.messages.value.length,
                 itemBuilder: (context, index) {
-                  final _isAuthor =
-                      wm.messages.value[index].author is ChatUserLocalDto;
-                  // ignore: prefer-conditional-expressions
-                  if (wm.messages.value[index] is ChatMessageGeolocationDto) {
-                    return MessageGeoCard(
-                      message:
-                          wm.messages.value[index] as ChatMessageGeolocationDto,
-                      isAuthor: _isAuthor,
-                    );
-                  } else {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: MessageCard(
-                        message: wm.messages.value[index],
-                        isAuthor: _isAuthor,
-                      ),
-                    );
-                  }
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: MessageCard(
+                      message: wm.messages.value[index],
+                    ),
+                  );
                 },
               ),
             );

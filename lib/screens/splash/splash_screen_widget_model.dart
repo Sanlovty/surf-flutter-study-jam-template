@@ -18,7 +18,7 @@ class SplashScreenWidgetModel extends WidgetModel
     with TickerProviderWidgetModelMixin {
   static const int _fadeDuration = 0;
   static const int _animationDuration = 100;
-  static const int _splashScreenDuration = 2000;
+  static const int _splashScreenDuration = 2;
 
   final GlobalKey<ScaffoldState> scaffoldKey;
   final NavigatorState navigator;

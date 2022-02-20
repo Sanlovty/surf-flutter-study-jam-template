@@ -7,6 +7,7 @@ import 'package:surf_practice_chat_flutter/app/di/app_component.dart';
 import 'package:surf_practice_chat_flutter/assets/res/app_icons.dart';
 import 'package:surf_practice_chat_flutter/data/chat/models/geolocation.dart';
 import 'package:surf_practice_chat_flutter/data/chat/models/message.dart';
+import 'package:surf_practice_chat_flutter/data/chat/models/user.dart';
 import 'package:surf_practice_chat_flutter/data/chat/repository/repository.dart';
 
 ChatsScreenWidgetModel createChatsScreenWidgetModel(BuildContext context) {
@@ -17,6 +18,22 @@ ChatsScreenWidgetModel createChatsScreenWidgetModel(BuildContext context) {
     chatRepository: Injector.of<AppComponent>(context).component.chatRepository,
   );
 }
+
+const _mockUser = ChatUserDto(
+  name: 'Afganistan',
+);
+final _mockUserMe = ChatUserLocalDto(
+  name: 'Myselft',
+);
+final _mockLocation = ChatGeolocationDto(
+  latitude: 55.0,
+  longitude: 106.442,
+);
+final _mockDateTime = DateTime.now();
+
+final _mockShortMessage = 'Short message';
+final _mockLongMessage =
+    'Very very very very very very very very very very very  very very very very very very very very very very  very very very very very very very very very very long message';
 
 /// [WidgetModel] для начального экрана
 class ChatsScreenWidgetModel extends WidgetModel {
@@ -34,7 +51,30 @@ class ChatsScreenWidgetModel extends WidgetModel {
   final nicknameController = TextEditingController();
   final textController = TextEditingController();
 
-  final messages = StreamedState<List<ChatMessageDto>>([]);
+  final messages = StreamedState<List<ChatMessageDto>>([
+    ChatMessageDto(
+      author: _mockUser,
+      message: _mockLongMessage,
+      createdDateTime: _mockDateTime,
+    ),
+    ChatMessageDto(
+      author: _mockUserMe,
+      message: _mockShortMessage,
+      createdDateTime: _mockDateTime,
+    ),
+    ChatMessageGeolocationDto(
+      author: _mockUser,
+      location: _mockLocation,
+      message: _mockLongMessage,
+      createdDate: _mockDateTime,
+    ),
+    ChatMessageGeolocationDto(
+      author: _mockUserMe,
+      location: _mockLocation,
+      message: _mockShortMessage,
+      createdDate: _mockDateTime,
+    ),
+  ]);
 
   ChatsScreenWidgetModel({
     required this.navigator,
@@ -43,22 +83,22 @@ class ChatsScreenWidgetModel extends WidgetModel {
   }) : super(const WidgetModelDependencies());
 
   Future<void> onRefreshTap() async {
-    await _fetchMessages();
+    //await _fetchMessages();
   }
 
   Future<void> onLocationTap() async {
-    final response = await _determinePosition();
+    //final response = await _determinePosition();
 
-    final nickname = _getNickname();
-    final location = ChatGeolocationDto(
-      latitude: response.latitude,
-      longitude: response.longitude,
-    );
-    await chatRepository.sendGeolocationMessage(
-      nickname: nickname,
-      location: location,
-    );
-    await _fetchMessages();
+    //final nickname = _getNickname();
+    //final location = ChatGeolocationDto(
+    //  latitude: response.latitude,
+    //  longitude: response.longitude,
+    //);
+    //await chatRepository.sendGeolocationMessage(
+    //  nickname: nickname,
+    //  location: location,
+    //);
+    //await _fetchMessages();
   }
 
   Future<void> onSendTap() async {
@@ -85,7 +125,7 @@ class ChatsScreenWidgetModel extends WidgetModel {
   @override
   void onLoad() {
     super.onLoad();
-    _fetchMessages();
+    //_fetchMessages();
   }
 
   // ignore: member-ordering-extended
