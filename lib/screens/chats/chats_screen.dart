@@ -156,7 +156,7 @@ class _ChatsScreenState
                 itemCount: wm.messages.value.length,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(24.0),
                     child: MessageCard(
                       message: wm.messages.value[index],
                     ),

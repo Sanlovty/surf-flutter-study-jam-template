@@ -62,6 +62,11 @@ class ChatsScreenWidgetModel extends WidgetModel {
       message: _mockShortMessage,
       createdDateTime: _mockDateTime,
     ),
+    ChatMessageDto(
+      author: _mockUserMe,
+      message: _mockLongMessage,
+      createdDateTime: _mockDateTime,
+    ),
     ChatMessageGeolocationDto(
       author: _mockUser,
       location: _mockLocation,

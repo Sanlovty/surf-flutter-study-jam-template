@@ -14,7 +14,9 @@ class MessageCard extends StatelessWidget {
   late final String _authorName;
   late final DateTime _dateTime;
   late final ChatGeolocationDto? _geolocationDto;
-  late final TextStyle _textStyle;
+  late final TextStyle _messageStyle;
+  late final TextStyle _nicknameStyle;
+  late final TextStyle _dateTimeStyle;
   late final Color _backgroundColor;
   late final List<Widget> _widgetList;
 
@@ -26,16 +28,48 @@ class MessageCard extends StatelessWidget {
     _message = message.message;
     _authorName = message.author.name;
     _isAuthor = message.author is ChatUserLocalDto;
-    _textStyle = _isAuthor
+    _messageStyle = _isAuthor
         ? AppTypography.textAuthorMessage
         : AppTypography.textStrangerMessage;
+    _nicknameStyle = _isAuthor
+        ? AppTypography.nicknameAuthorMessage
+        : AppTypography.nicknameStrangerMessage;
+    _dateTimeStyle = _isAuthor
+        ? AppTypography.dateTimeAuthorMessage
+        : AppTypography.dateTimeStrangerMessage;
     _backgroundColor =
         _isAuthor ? AppColors.blueMagentaViolet : AppColors.darkJungleGreen;
     _dateTime = message.createdDateTime;
-    if (message is ChatMessageGeolocationDto) {
-      _geolocationDto = message.location;
-    }
+    _geolocationDto =
+        message is ChatMessageGeolocationDto ? message.location : null;
+    _initWidgetList();
+  }
 
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      child: Row(
+        mainAxisAlignment:
+            _isAuthor ? MainAxisAlignment.end : MainAxisAlignment.start,
+        children: _isAuthor
+            ? [
+                _widgetList[3],
+                _widgetList[1],
+                _widgetList[2],
+                _widgetList[0],
+              ]
+            : [
+                _widgetList[0],
+                _widgetList[2],
+                _widgetList[1],
+                _widgetList[3],
+              ],
+      ),
+    );
+  }
+
+  // ignore: long-method
+  void _initWidgetList() {
     _widgetList = [
       CircleAvatar(
         backgroundColor: Colors.white,
@@ -48,12 +82,53 @@ class MessageCard extends StatelessWidget {
             color: _backgroundColor,
             borderRadius: const BorderRadius.all(Radius.circular(16.0)),
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(12),
-            child: Text(
-              _message,
-              style: _textStyle,
-            ),
+          child: Column(
+            crossAxisAlignment:
+                _isAuthor ? CrossAxisAlignment.start : CrossAxisAlignment.end,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: 12,
+                  left: 10,
+                  right: 10,
+                  bottom: 5,
+                ),
+                child: Column(
+                  crossAxisAlignment: _isAuthor
+                      ? CrossAxisAlignment.end
+                      : CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      _authorName,
+                      style: _nicknameStyle,
+                    ),
+                    Text(
+                      _message,
+                      style: _messageStyle,
+                    ),
+                    Visibility(
+                      // TODO: rebuild geolocation method
+                      visible: _geolocationDto != null,
+                      child: Text(
+                        'lat:${_geolocationDto?.latitude}, lon:${_geolocationDto?.longitude},',
+                        style: _messageStyle,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                  bottom: 8,
+                  right: _isAuthor ? 0 : 10,
+                  left: _isAuthor ? 10 : 0,
+                ),
+                child: Text(
+                  _dateTimeToString(_dateTime),
+                  style: _dateTimeStyle,
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -66,28 +141,13 @@ class MessageCard extends StatelessWidget {
     ];
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      child: Row(
-        children: _isAuthor
-            ? [
-                _widgetList[0],
-                _widgetList[2],
-                _widgetList[1],
-                _widgetList[3],
-              ]
-            : [
-                _widgetList[3],
-                _widgetList[1],
-                _widgetList[2],
-                _widgetList[0],
-              ],
-      ),
-    );
-  }
-
   String _dateTimeToString(DateTime time) {
-    return '${time.hour.toString()}:${time.minute < 10 ? '0${time.minute.toString()}  ' : '${time.minute.toString()}  '}';
+    final result =
+        '${time.hour.toString()}:${time.minute < 10 ? '0${time.minute.toString()}  ' : '${time.minute.toString()}  '}';
+    if (time.minute < 10) {
+      return result.substring(0, result.length - 2);
+    }
+
+    return result;
   }
 }
