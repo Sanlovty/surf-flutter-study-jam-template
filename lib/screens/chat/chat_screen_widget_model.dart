@@ -31,8 +31,8 @@ final _mockLocation = ChatGeolocationDto(
 );
 final _mockDateTime = DateTime.now();
 
-final _mockShortMessage = 'Short message';
-final _mockLongMessage =
+const _mockShortMessage = 'Short message';
+const _mockLongMessage =
     'Very very very very very very very very very very very  very very very very very very very very very very  very very very very very very very very very very long message';
 
 /// [WidgetModel] для начального экрана
@@ -93,7 +93,7 @@ class ChatScreenWidgetModel extends WidgetModel {
 
   Future<void> onLocationTap() async {
     final response = await _determinePosition();
-
+    final message = _getMessage();
     final nickname = _getNickname();
     final location = ChatGeolocationDto(
       latitude: response.latitude,
@@ -102,6 +102,7 @@ class ChatScreenWidgetModel extends WidgetModel {
     await chatRepository.sendGeolocationMessage(
       nickname: nickname,
       location: location,
+      message: message,
     );
     await _fetchMessages();
   }
