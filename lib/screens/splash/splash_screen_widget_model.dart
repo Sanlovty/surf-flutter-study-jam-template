@@ -57,7 +57,7 @@ class SplashScreenWidgetModel extends WidgetModel
     animationController.dispose();
     fadeController.dispose();
 
-    _openScreen(AppRouter.chatsScreen);
+    _openScreen(AppRouter.chatScreen);
   }
 
   void _openScreen(String routeName) {

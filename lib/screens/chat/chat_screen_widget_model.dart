@@ -10,8 +10,8 @@ import 'package:surf_practice_chat_flutter/data/chat/models/message.dart';
 import 'package:surf_practice_chat_flutter/data/chat/models/user.dart';
 import 'package:surf_practice_chat_flutter/data/chat/repository/repository.dart';
 
-ChatsScreenWidgetModel createChatsScreenWidgetModel(BuildContext context) {
-  return ChatsScreenWidgetModel(
+ChatScreenWidgetModel createChatScreenWidgetModel(BuildContext context) {
+  return ChatScreenWidgetModel(
     navigator:
         Injector.of<AppComponent>(context).component.navigator.currentState!,
     scaffoldKey: Injector.of<AppComponent>(context).component.scaffoldKey,
@@ -36,7 +36,7 @@ final _mockLongMessage =
     'Very very very very very very very very very very very  very very very very very very very very very very  very very very very very very very very very very long message';
 
 /// [WidgetModel] для начального экрана
-class ChatsScreenWidgetModel extends WidgetModel {
+class ChatScreenWidgetModel extends WidgetModel {
   final GlobalKey<ScaffoldState> scaffoldKey;
   final NavigatorState navigator;
   final ChatRepository chatRepository;
@@ -50,8 +50,8 @@ class ChatsScreenWidgetModel extends WidgetModel {
 
   final nicknameController = TextEditingController();
   final textController = TextEditingController();
-
-  final messages = StreamedState<List<ChatMessageDto>>([
+  final messages = StreamedState<List<ChatMessageDto>>([]);
+  final _messages = StreamedState<List<ChatMessageDto>>([
     ChatMessageDto(
       author: _mockUser,
       message: _mockLongMessage,
@@ -81,29 +81,29 @@ class ChatsScreenWidgetModel extends WidgetModel {
     ),
   ]);
 
-  ChatsScreenWidgetModel({
+  ChatScreenWidgetModel({
     required this.navigator,
     required this.scaffoldKey,
     required this.chatRepository,
   }) : super(const WidgetModelDependencies());
 
   Future<void> onRefreshTap() async {
-    //await _fetchMessages();
+    await _fetchMessages();
   }
 
   Future<void> onLocationTap() async {
-    //final response = await _determinePosition();
+    final response = await _determinePosition();
 
-    //final nickname = _getNickname();
-    //final location = ChatGeolocationDto(
-    //  latitude: response.latitude,
-    //  longitude: response.longitude,
-    //);
-    //await chatRepository.sendGeolocationMessage(
-    //  nickname: nickname,
-    //  location: location,
-    //);
-    //await _fetchMessages();
+    final nickname = _getNickname();
+    final location = ChatGeolocationDto(
+      latitude: response.latitude,
+      longitude: response.longitude,
+    );
+    await chatRepository.sendGeolocationMessage(
+      nickname: nickname,
+      location: location,
+    );
+    await _fetchMessages();
   }
 
   Future<void> onSendTap() async {
@@ -130,7 +130,7 @@ class ChatsScreenWidgetModel extends WidgetModel {
   @override
   void onLoad() {
     super.onLoad();
-    //_fetchMessages();
+    _fetchMessages();
   }
 
   // ignore: member-ordering-extended

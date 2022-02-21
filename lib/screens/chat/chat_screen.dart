@@ -4,26 +4,25 @@ import 'package:relation/relation.dart';
 import 'package:surf_practice_chat_flutter/assets/colors/app_colors.dart';
 import 'package:surf_practice_chat_flutter/data/chat/models/message.dart';
 import 'package:surf_practice_chat_flutter/data/chat/models/user.dart';
-import 'package:surf_practice_chat_flutter/screens/chats/chats_screen_widget_model.dart';
-import 'package:surf_practice_chat_flutter/screens/chats/widgets/message_card.dart';
+import 'package:surf_practice_chat_flutter/screens/chat/chat_screen_widget_model.dart';
+import 'package:surf_practice_chat_flutter/screens/chat/widgets/message_card.dart';
 import 'package:surf_util/surf_util.dart';
 
 /// Splash screen
-class ChatsScreen extends CoreMwwmWidget<ChatsScreenWidgetModel> {
-  const ChatsScreen({
+class ChatScreen extends CoreMwwmWidget<ChatScreenWidgetModel> {
+  const ChatScreen({
     Key? key,
   }) : super(
           key: key,
-          widgetModelBuilder: createChatsScreenWidgetModel,
+          widgetModelBuilder: createChatScreenWidgetModel,
         );
 
   @override
-  WidgetState<ChatsScreen, ChatsScreenWidgetModel> createWidgetState() =>
-      _ChatsScreenState();
+  WidgetState<ChatScreen, ChatScreenWidgetModel> createWidgetState() =>
+      _ChatScreenState();
 }
 
-class _ChatsScreenState
-    extends WidgetState<ChatsScreen, ChatsScreenWidgetModel> {
+class _ChatScreenState extends WidgetState<ChatScreen, ChatScreenWidgetModel> {
   @override
   Widget build(BuildContext context) {
     return Container(
